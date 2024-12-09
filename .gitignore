@@ -1,0 +1,5 @@
+# write a .gitignore file for terraform workspaces
+*.tfstate*
+.terraform*
+planfile
+*.tfvars

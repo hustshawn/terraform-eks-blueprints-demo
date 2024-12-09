@@ -1,0 +1,172 @@
+apiVersion: v1
+items:
+- apiVersion: karpenter.sh/v1beta1
+  kind: NodePool
+  metadata:
+    annotations:
+      karpenter.sh/nodepool-hash: "5345755618547637684"
+      karpenter.sh/nodepool-hash-version: v1
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"karpenter.sh/v1beta1","kind":"NodePool","metadata":{"annotations":{},"name":"default"},"spec":{"disruption":{"consolidationPolicy":"WhenUnderutilized","expireAfter":"72h0m0s"},"limits":{"cpu":"1k"},"template":{"spec":{"kubelet":{"maxPods":110},"nodeClassRef":{"name":"default"},"requirements":[{"key":"karpenter.k8s.aws/instance-category","operator":"In","values":["c","m","r"]},{"key":"karpenter.k8s.aws/instance-cpu","operator":"In","values":["4","8","16"]},{"key":"karpenter.k8s.aws/instance-hypervisor","operator":"In","values":["nitro"]},{"key":"topology.kubernetes.io/zone","operator":"In","values":["ap-southeast-1a","ap-southeast-1b","ap-southeast-1c"]},{"key":"kubernetes.io/arch","operator":"In","values":["amd64"]},{"key":"karpenter.sh/capacity-type","operator":"In","values":["spot","on-demand"]}]}}}}
+    creationTimestamp: "2024-04-11T08:05:45Z"
+    generation: 1
+    name: default
+    resourceVersion: "424599226"
+    uid: 14b24d77-5ffa-45d3-a071-90577b057cc8
+  spec:
+    disruption:
+      budgets:
+      - nodes: 10%
+      consolidationPolicy: WhenUnderutilized
+      expireAfter: 72h0m0s
+    limits:
+      cpu: 1k
+    template:
+      spec:
+        kubelet:
+          maxPods: 110
+        nodeClassRef:
+          name: default
+        requirements:
+        - key: karpenter.k8s.aws/instance-category
+          operator: In
+          values:
+          - c
+          - m
+          - r
+        - key: karpenter.k8s.aws/instance-cpu
+          operator: In
+          values:
+          - "4"
+          - "8"
+          - "16"
+        - key: karpenter.k8s.aws/instance-hypervisor
+          operator: In
+          values:
+          - nitro
+        - key: topology.kubernetes.io/zone
+          operator: In
+          values:
+          - ap-southeast-1a
+          - ap-southeast-1b
+          - ap-southeast-1c
+        - key: kubernetes.io/arch
+          operator: In
+          values:
+          - amd64
+        - key: karpenter.sh/capacity-type
+          operator: In
+          values:
+          - spot
+          - on-demand
+  status:
+    resources:
+      cpu: "12"
+      ephemeral-storage: 61242Mi
+      memory: 32019512Ki
+      pods: "330"
+- apiVersion: karpenter.k8s.aws/v1beta1
+  kind: EC2NodeClass
+  metadata:
+    annotations:
+      karpenter.k8s.aws/ec2nodeclass-hash: "7824209359442158791"
+      karpenter.k8s.aws/ec2nodeclass-hash-version: v1
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"karpenter.k8s.aws/v1beta1","kind":"EC2NodeClass","metadata":{"annotations":{},"name":"default"},"spec":{"amiFamily":"Bottlerocket","role":"karpenter-ipv4-prefix-delegation-20231126010741917100000005","securityGroupSelectorTerms":[{"tags":{"Name":"ipv4-prefix-delegation-node"}}],"subnetSelectorTerms":[{"tags":{"karpenter.sh/discovery":"ipv4-prefix-delegation"}}],"tags":{"karpenter.sh/discovery":"ipv4-prefix-delegation"}}}
+    creationTimestamp: "2024-04-11T08:06:00Z"
+    finalizers:
+    - karpenter.k8s.aws/termination
+    generation: 1
+    name: default
+    resourceVersion: "424600511"
+    uid: a772c395-f2b5-4e04-947f-3621f64075ae
+  spec:
+    amiFamily: Bottlerocket
+    metadataOptions:
+      httpEndpoint: enabled
+      httpProtocolIPv6: disabled
+      httpPutResponseHopLimit: 2
+      httpTokens: required
+    role: karpenter-ipv4-prefix-delegation-20231126010741917100000005
+    securityGroupSelectorTerms:
+    - tags:
+        Name: ipv4-prefix-delegation-node
+    subnetSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: ipv4-prefix-delegation
+    tags:
+      karpenter.sh/discovery: ipv4-prefix-delegation
+  status:
+    amis:
+    - id: ami-09e5c75559bb6bfe8
+      name: bottlerocket-aws-k8s-1.30-aarch64-v1.20.3-5d9ac849
+      requirements:
+      - key: kubernetes.io/arch
+        operator: In
+        values:
+        - arm64
+      - key: karpenter.k8s.aws/instance-gpu-count
+        operator: DoesNotExist
+      - key: karpenter.k8s.aws/instance-accelerator-count
+        operator: DoesNotExist
+    - id: ami-03025558f6c101c7c
+      name: bottlerocket-aws-k8s-1.30-nvidia-x86_64-v1.20.3-5d9ac849
+      requirements:
+      - key: kubernetes.io/arch
+        operator: In
+        values:
+        - amd64
+      - key: karpenter.k8s.aws/instance-gpu-count
+        operator: Exists
+    - id: ami-03025558f6c101c7c
+      name: bottlerocket-aws-k8s-1.30-nvidia-x86_64-v1.20.3-5d9ac849
+      requirements:
+      - key: kubernetes.io/arch
+        operator: In
+        values:
+        - amd64
+      - key: karpenter.k8s.aws/instance-accelerator-count
+        operator: Exists
+    - id: ami-09f498c47488cf569
+      name: bottlerocket-aws-k8s-1.30-x86_64-v1.20.3-5d9ac849
+      requirements:
+      - key: kubernetes.io/arch
+        operator: In
+        values:
+        - amd64
+      - key: karpenter.k8s.aws/instance-gpu-count
+        operator: DoesNotExist
+      - key: karpenter.k8s.aws/instance-accelerator-count
+        operator: DoesNotExist
+    - id: ami-02c1d2c349054a29d
+      name: bottlerocket-aws-k8s-1.30-nvidia-aarch64-v1.20.3-5d9ac849
+      requirements:
+      - key: kubernetes.io/arch
+        operator: In
+        values:
+        - arm64
+      - key: karpenter.k8s.aws/instance-gpu-count
+        operator: Exists
+    - id: ami-02c1d2c349054a29d
+      name: bottlerocket-aws-k8s-1.30-nvidia-aarch64-v1.20.3-5d9ac849
+      requirements:
+      - key: kubernetes.io/arch
+        operator: In
+        values:
+        - arm64
+      - key: karpenter.k8s.aws/instance-accelerator-count
+        operator: Exists
+    instanceProfile: ipv4-prefix-delegation_4209157013221373858
+    securityGroups:
+    - id: sg-03885d2eb0acb5800
+      name: ipv4-prefix-delegation-node-20230209103609775400000004
+    subnets:
+    - id: subnet-0203c49eab303488f
+      zone: ap-southeast-1c
+    - id: subnet-067a37466e1bc878a
+      zone: ap-southeast-1a
+    - id: subnet-084794f8398d21d22
+      zone: ap-southeast-1b
+kind: List
+metadata:
+  resourceVersion: ""

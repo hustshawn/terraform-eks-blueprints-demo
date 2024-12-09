@@ -1,0 +1,61 @@
+groups:
+- name: ppsallowance
+  rules:
+  - record: metric:pps_allowance_exceeded
+    expr: rate(node_net_ethtool{device="eth0",type="pps_allowance_exceeded"}[30s])
+  - alert: PPSAllowanceExceeded
+    expr: rate(node_net_ethtool{device="eth0",type="pps_allowance_exceeded"} [30s]) > 0
+    labels:
+      severity: critical
+
+    annotations:
+      summary: Connections dropped due to total allowance exceeding for the  (instance {{ $labels.instance }})
+      description: "PPSAllowanceExceeded is greater than 0"
+- name: bw_in
+  rules:
+  - record: metric:bw_in_allowance_exceeded
+    expr: rate(node_net_ethtool{device="eth0",type="bw_in_allowance_exceeded"}[30s])
+  - alert: BWINAllowanceExceeded
+    expr: rate(node_net_ethtool{device="eth0",type="bw_in_allowance_exceeded"} [30s]) > 0
+    labels:
+      severity: critical
+
+    annotations:
+      summary: Connections dropped due to total allowance exceeding for the  (instance {{ $labels.instance }})
+      description: "BWInAllowanceExceeded is greater than 0"
+- name: bw_out
+  rules:
+  - record: metric:bw_out_allowance_exceeded
+    expr: rate(node_net_ethtool{device="eth0",type="bw_out_allowance_exceeded"}[30s])
+  - alert: BWOutAllowanceExceeded
+    expr: rate(node_net_ethtool{device="eth0",type="bw_out_allowance_exceeded"} [30s]) > 0
+    labels:
+      severity: critical
+
+    annotations:
+      summary: Connections dropped due to total allowance exceeding for the  (instance {{ $labels.instance }})
+      description: "BWoutAllowanceExceeded is greater than 0"            
+- name: conntrack
+  rules:
+  - record: metric:conntrack_allowance_exceeded
+    expr: rate(node_net_ethtool{device="eth0",type="conntrack_allowance_exceeded"}[30s])
+  - alert: ConntrackAllowanceExceeded
+    expr: rate(node_net_ethtool{device="eth0",type="conntrack_allowance_exceeded"} [30s]) > 0
+    labels:
+      severity: critical
+
+    annotations:
+      summary: Connections dropped due to total allowance exceeding for the  (instance {{ $labels.instance }})
+      description: "ConnTrackAllowanceExceeded is greater than 0"
+- name: linklocal
+  rules:
+  - record: metric:linklocal_allowance_exceeded
+    expr: rate(node_net_ethtool{device="eth0",type="linklocal_allowance_exceeded"}[30s])
+  - alert: LinkLocalAllowanceExceeded
+    expr: rate(node_net_ethtool{device="eth0",type="linklocal_allowance_exceeded"} [30s]) > 0
+    labels:
+      severity: critical
+
+    annotations:
+      summary: Packets dropped due to PPS rate allowance exceeded for local services  (instance {{ $labels.instance }})
+      description: "LinkLocalAllowanceExceeded is greater than 0"

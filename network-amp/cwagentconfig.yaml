@@ -1,0 +1,60 @@
+# apiVersion: v1
+# data:
+#   cwagentconfig.json: |
+#     {
+#       "logs": {
+#         "metrics_collected": {
+#           "kubernetes": {
+#             "cluster_name": "cluster-latest",
+#             "metrics_collection_interval": 60
+#           }
+#         },
+#         "force_flush_interval": 5
+#       }
+#     }
+# kind: ConfigMap
+# metadata:
+#   name: cwagentconfig
+#   namespace: amazon-cloudwatch
+
+---
+
+apiVersion: v1
+data:
+  cwagentconfig.json: |
+    {
+      "logs": {
+        "metrics_collected": {
+          "kubernetes": {
+            "cluster_name": "cluster-latest",
+            "metrics_collection_interval": 60
+          }
+        },
+        "force_flush_interval": 5
+      },
+      "metrics": {
+          "append_dimensions": {
+            "InstanceId": "${aws:InstanceId}"
+          },
+          "metrics_collected": {
+            "ethtool": {
+              "interface_include": [
+                "eth0"
+              ],
+              "metrics_include": [
+                "rx_packets",
+                "tx_packets",
+                "bw_in_allowance_exceeded",
+                "bw_out_allowance_exceeded",
+                "conntrack_allowance_exceeded",
+                "linklocal_allowance_exceeded",
+                "pps_allowance_exceeded"
+              ]
+            }
+          }
+      }
+    }
+kind: ConfigMap
+metadata:
+  name: cwagentconfig
+  namespace: amazon-cloudwatch
